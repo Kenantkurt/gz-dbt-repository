@@ -15,4 +15,4 @@ renamed as (
 )
 
 select *
-from renamed
+from renamed 
