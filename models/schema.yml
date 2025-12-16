@@ -6,7 +6,7 @@ sources:
     description: Raw data from Greenweez source systems
 
     tables:
-      - name: sales              
+      - name: sales
         identifier: raw_gz_sales
         description: Raw sales data from Greenweez
 
@@ -21,8 +21,8 @@ sources:
             tests:
               - not_null
 
-          - name: pdt_id         
-            description: Unique identifier of the product in raw sales
+          - name: pdt_id
+            description: Unique identifier of the product
             tests:
               - not_null
 
@@ -32,21 +32,20 @@ sources:
           - name: quantity
             description: Quantity of product sold
 
-      - name: product            
+      - name: product
         identifier: raw_gz_product
         description: Raw product reference data
 
         columns:
-          - name: products_id    
+          - name: products_id
             description: Unique identifier of the product
             tests:
               - not_null
-              
 
           - name: purchase_price
             description: Purchase price of the product
 
-      - name: ship               
+      - name: ship
         identifier: raw_gz_ship
         description: Raw shipping and logistics data
 
@@ -65,4 +64,25 @@ sources:
 
           - name: ship_cost
             description: Number of shipments for the order
- 
+
+
+models:
+  - name: int_sales_margin
+    description: Intermediate model that joins sales and product data to calculate revenue, purchase cost, and margin.
+
+    columns:
+      - name: orders_id
+        description: Unique identifier of the order.
+        tests:
+          - not_null
+
+      - name: product_id
+        description: Unique identifier of the product.
+        tests:
+          - not_null
+
+      - name: revenue
+        description: Total revenue generated for the order line.
+
+      - name: margin
+        description: Difference between revenue and purchase cost.
