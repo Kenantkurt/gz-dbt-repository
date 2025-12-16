@@ -9,4 +9,4 @@ sum(quantity) as nb_of_products,
 round(sum(purchase_cost),2) as total_purchase_cost,
 round(sum(margin),2) as total_margin
 from sales_margin
-group by orders_id , date_date
+group by orders_id , date_date 

@@ -15,5 +15,5 @@ ship as (
 select orders_margin.date,
 orders_margin.orders_id,
 round(orders_margin.total_margin+ ship.shipping_fee-ship.logCost-ship.ship_cost,2) as operational_margin
-from orders_margin left join ship on ship.orders_id = orders_margin.orders_id
+from orders_margin left join ship on ship.orders_id = orders_margin.orders_id 
 
