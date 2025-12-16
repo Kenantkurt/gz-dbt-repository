@@ -22,4 +22,4 @@ sales.quantity*products.purchase_price as purchase_cost,
 round(sales.revenue - (sales.quantity*products.purchase_price),2) as margin
 from sales
 left join products
-    on sales.products_id = products.products_id
+    on sales.products_id = products.products_id 
