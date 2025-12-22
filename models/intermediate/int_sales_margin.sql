@@ -5,7 +5,7 @@ with sales as (
 
 ),
 
-products as (
+product_dim as (
 
     select *
     from {{ ref('stg_raw__product') }}
@@ -18,12 +18,16 @@ select
     sales.products_id as product_id,
     sales.revenue,
     sales.quantity,
-    products.purchase_price,
-    sales.quantity * products.purchase_price as purchase_cost,
+    product_dim.purchase_price,
+    sales.quantity * product_dim.purchase_price as purchase_cost,
     round(
-        sales.revenue - (sales.quantity * products.purchase_price),
+        sales.revenue - (sales.quantity * product_dim.purchase_price),
         2
-    ) as margin
+    ) as margin,
+    {{ margin_percent(
+        'sales.revenue',
+        'sales.quantity * product_dim.purchase_price'
+    ) }} as margin_percent
 from sales
-left join products
-    on sales.products_id = products.products_id
+left join product_dim
+    on sales.products_id = product_dim.products_id
